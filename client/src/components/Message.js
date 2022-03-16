@@ -17,7 +17,8 @@ function Message({ sender, children }) {
 }
 
 Message.propTypes = {
-  sender: PropTypes.oneOf(Object.values(Sender))
+  sender: PropTypes.oneOf(Object.values(Sender)),
+  children: PropTypes.node.isRequired
 };
 
 export default Message;
