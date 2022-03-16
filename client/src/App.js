@@ -1,23 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import Message from 'components/Message';
+import { Sender } from 'models/message';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="w-full m-auto md:w-4/6 flex-col">
+        <div className="mt-20 mb-16">
+          <Message sender={`${Sender.ROCKETCODE}`}>Hola mundo</Message>
+          <Message sender={`${Sender.GUEST}`}>Hola mundo</Message>
+        </div>
+      </div>
     </div>
   );
 }
