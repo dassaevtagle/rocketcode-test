@@ -6,7 +6,8 @@
     "client": "npm --prefix ./client/ start",
     "server": "node ./bin/www",
     "server:dev": "nodemon ./bin/www",
-    "dev": "run-p server:dev client"
+    "dev": "run-p server:dev client",
+    "build": "NPM_CONFIG_PRODUCTION=false npm --prefix ./client/ install && npm --prefix ./client/ build"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
