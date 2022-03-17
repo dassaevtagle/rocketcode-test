@@ -1,5 +1,6 @@
 import { Fragment, useState, useContext } from 'react'
 
+import { UsersService } from 'services/UsersService'
 import Message from 'components/Message'
 import { Sender } from 'models/message'
 import { ChatContext } from 'pages/Chat'
@@ -9,16 +10,27 @@ const LastStage = () => {
   const [userMessage, updateUserMessage] = useState('')
   const { userData } = useContext(ChatContext)
 
-  const sendData = () => {
-    setShowUserMessage(true)
-    const fullName = `${userData.name} ${userData.second_name} ${userData.first_lastname} ${userData.second_lastname}`
-    updateUserMessage(
-      <>
-        Fecha de Nacimiento: {userData.birth_date} <br /> Correo electrónico: {userData.mail} <br />{' '}
-        Teléfono celular: {userData.phone} <br /> Nombre: {fullName}{' '}
-      </>
-    )
-    console.log(userData)
+  const sendData = async () => {
+    try {
+      const response = await UsersService.addNewUser(userData)
+      setShowUserMessage(true)
+      const fullName = `${userData.name} ${userData.second_name} ${userData.first_lastname} ${userData.second_lastname}`
+      updateUserMessage(
+        <>
+          Fecha de Nacimiento: {userData.birth_date}
+          <br />
+          Correo electrónico: {userData.mail}
+          <br />
+          Teléfono celular: {userData.phone}
+          <br />
+          Nombre: {fullName}
+        </>
+      )
+      console.log(userData)
+      console.log(response.data)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
