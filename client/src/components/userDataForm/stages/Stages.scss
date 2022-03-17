@@ -1,0 +1,17 @@
+.input{
+  &-container {
+    @apply md:w-2/3 mb-2;
+  }
+
+  &-field {
+    @apply bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500;
+  }
+
+  &-error {
+    @apply border-red-500;
+
+    &__message {
+      @apply text-sm text-red-600 ml-1;
+    }
+  }
+}
