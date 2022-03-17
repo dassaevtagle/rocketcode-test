@@ -32,6 +32,7 @@ const DatePickerField = ({ ...props }) => {
 
 const BirthDateStage = () => {
   const [showUserMessage, setShowUserMessage] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
   const [userMessage, updateUserMessage] = useState('')
   const { goToNextStage, userData, updateUserData } = useContext(ChatContext)
 
@@ -46,30 +47,32 @@ const BirthDateStage = () => {
         <Formik
           initialValues={{ birth_date: '' }}
           onSubmit={(data, { setSubmitting }) => {
+            if(data.birth_date === ''){ return; }
             renderValidatedData(moment(data.birth_date).locale('es').format('LL'))
             data.birth_date = moment(data.birth_date).format('YYYY-MM-DD')
 
             setTimeout(() => {
               setSubmitting(false)
+              setIsDisabled(true)
               updateUserData({ ...userData, ...data })
               goToNextStage()
             }, TIME_BEFORE_NEXT_MESSAGE)
           }}
         >
           {(props) => {
-            const { dirty, isSubmitting, handleSubmit, handleReset } = props
+            const { dirty, isSubmitting, handleSubmit } = props
             return (
               <form onSubmit={handleSubmit}>
-                <h2 className="text-lg">¿Cuál es tu fecha de nacimiento?</h2>
+                <h2 className="stage-question">¿Cuál es tu fecha de nacimiento?</h2>
                 <div className="input-container">
-                  <DatePickerField name="birth_date" />
+                  <DatePickerField name="birth_date" disabled={(isDisabled)} />
                 </div>
-                <button type="button" onClick={handleReset} disabled={!dirty || isSubmitting}>
-                  Borrar
-                </button>
-                <button type="submit" disabled={isSubmitting}>
-                  Continuar
-                </button>
+                { 
+                  !isDisabled &&
+                  <button type="submit" disabled={isSubmitting} className={!(dirty) ? 'submit-button__disabled' : 'submit-button'}>
+                    Continuar
+                  </button>
+                }
               </form>
             )
           }}

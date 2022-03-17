@@ -4,6 +4,6 @@ const Sender = {
 }
 Object.freeze(Sender)
 
-const TIME_BEFORE_NEXT_MESSAGE = 1000
+const TIME_BEFORE_NEXT_MESSAGE = 800
 
 export { Sender, TIME_BEFORE_NEXT_MESSAGE }

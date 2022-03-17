@@ -26,6 +26,7 @@ let initialValues = {
 
 const NameStage = () => {
   const [showUserMessage, setShowUserMessage] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
   const [userMessage, updateUserMessage] = useState('')
   const { goToNextStage, userData, updateUserData } = useContext(ChatContext)
 
@@ -44,6 +45,7 @@ const NameStage = () => {
             renderValidatedData(nameData)
             setTimeout(() => {
               updateUserData({ ...userData, ...nameData })
+              setIsDisabled(true)
               goToNextStage()
             }, TIME_BEFORE_NEXT_MESSAGE)
           }}
@@ -52,77 +54,82 @@ const NameStage = () => {
             const { errors, touched, isValid, dirty } = formik
             return (
               <Fragment>
-                <h2 className="text-lg">¿Cuál es tu nombre?</h2>
-                <div className="mb-6">
-                  <Form>
-                    <div className="input-container">
-                      <Field
-                        type="text"
-                        name="name"
-                        placeholder="Nombre"
-                        id="name"
-                        className={`
-                          ${errors.name && touched.name ? 'input-error' : null}
-                            input-field`}
-                      />
-                      <ErrorMessage name="name" component="span" className="input-error__message" />
-                    </div>
+                <h2 className="stage-question">¿Cuál es tu nombre?</h2>
+                <Form>
+                  <div className="input-container">
+                    <Field
+                      type="text"
+                      name="name"
+                      placeholder="Nombre"
+                      id="name"
+                      disabled={(isDisabled)}
+                      className={`
+                        ${errors.name && touched.name ? 'input-error' : null}
+                          input-field`}
+                    />
+                    <ErrorMessage name="name" component="span" className="input-error__message" />
+                  </div>
 
-                    <div className="input-container">
-                      <Field
-                        type="text"
-                        name="second_name"
-                        placeholder="Segundo nombre"
-                        id="second_name"
-                        className="input-field"
-                      />
-                    </div>
+                  <div className="input-container">
+                    <Field
+                      type="text"
+                      name="second_name"
+                      placeholder="Segundo nombre"
+                      id="second_name"
+                      disabled={(isDisabled)}
+                      className="input-field"
+                    />
+                  </div>
 
-                    <div className="input-container">
-                      <Field
-                        type="text"
-                        name="first_lastname"
-                        placeholder="Apellido paterno"
-                        id="first_lastname"
-                        className={`
-                          ${errors.first_lastname && touched.first_lastname ? 'input-error' : null}
-                            input-field`}
-                      />
-                      <ErrorMessage
-                        name="first_lastname"
-                        component="span"
-                        className="input-error__message"
-                      />
-                    </div>
+                  <div className="input-container">
+                    <Field
+                      type="text"
+                      name="first_lastname"
+                      placeholder="Apellido paterno"
+                      id="first_lastname"
+                      disabled={(isDisabled)}
+                      className={`
+                        ${errors.first_lastname && touched.first_lastname ? 'input-error' : null}
+                          input-field`}
+                    />
+                    <ErrorMessage
+                      name="first_lastname"
+                      component="span"
+                      className="input-error__message"
+                    />
+                  </div>
 
-                    <div className="input-container">
-                      <Field
-                        type="text"
-                        name="second_lastname"
-                        placeholder="Apellido materno"
-                        id="second_lastname"
-                        className={`
-                          ${
-                            errors.second_lastname && touched.second_lastname ? 'input-error' : null
-                          }
-                            input-field`}
-                      />
-                      <ErrorMessage
-                        name="second_lastname"
-                        component="span"
-                        className="input-error__message"
-                      />
-                    </div>
+                  <div className="input-container">
+                    <Field
+                      type="text"
+                      name="second_lastname"
+                      placeholder="Apellido materno"
+                      id="second_lastname"
+                      disabled={(isDisabled)}
+                      className={`
+                        ${
+                          errors.second_lastname && touched.second_lastname ? 'input-error' : null
+                        }
+                          input-field`}
+                    />
+                    <ErrorMessage
+                      name="second_lastname"
+                      component="span"
+                      className="input-error__message"
+                    />
+                  </div>
 
+                  { 
+                    !isDisabled &&
                     <button
-                      type="submit"
-                      className={!(dirty && isValid) ? 'disabled-btn' : ''}
-                      disabled={!(dirty && isValid)}
+                    type="submit"
+                    className={!(dirty && isValid) ? 'submit-button__disabled' : 'submit-button'}
+                    disabled={!(dirty && isValid)}
                     >
                       Continuar
                     </button>
-                  </Form>
-                </div>
+                  }
+                </Form>
               </Fragment>
             )
           }}

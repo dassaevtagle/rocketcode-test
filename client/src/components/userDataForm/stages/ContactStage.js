@@ -27,6 +27,7 @@ let initialValues = {
 
 const ContactStage = () => {
   const [showUserMessage, setShowUserMessage] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
   const [userMessage, updateUserMessage] = useState('')
   const { goToNextStage, userData, updateUserData } = useContext(ChatContext)
 
@@ -49,6 +50,7 @@ const ContactStage = () => {
             renderValidatedData(contactData)
             setTimeout(() => {
               updateUserData({ ...userData, ...contactData })
+              setIsDisabled(true)
               goToNextStage()
             }, TIME_BEFORE_NEXT_MESSAGE)
           }}
@@ -57,48 +59,51 @@ const ContactStage = () => {
             const { errors, touched, isValid, dirty } = formik
             return (
               <Fragment>
-                <h2 className="text-lg">Datos de contacto</h2>
-                <div className="mb-6">
-                  <Form>
-                    <div className="input-container">
-                      <Field
-                        type="text"
-                        name="mail"
-                        placeholder="Correo electrónico"
-                        id="mail"
-                        className={`
-                          ${errors.mail && touched.mail ? 'input-error' : null}
-                            input-field `}
-                      />
-                      <ErrorMessage name="mail" component="span" className="input-error__message" />
-                    </div>
+                <h2 className="stage-question">Datos de contacto</h2>
+                <Form>
+                  <div className="input-container">
+                    <Field
+                      type="text"
+                      name="mail"
+                      placeholder="Correo electrónico"
+                      id="mail"
+                      disabled={(isDisabled)}
+                      className={`
+                        ${errors.mail && touched.mail ? 'input-error' : null}
+                          input-field `}
+                    />
+                    <ErrorMessage name="mail" component="span" className="input-error__message" />
+                  </div>
 
-                    <div className="input-container">
-                      <Field
-                        type="text"
-                        name="phone"
-                        placeholder="Teléfono celular"
-                        id="phone"
-                        className={`
-                          ${errors.phone && touched.phone ? 'input-error' : null}
-                            input-field `}
-                      />
-                      <ErrorMessage
-                        name="phone"
-                        component="span"
-                        className="input-error__message"
-                      />
-                    </div>
+                  <div className="input-container">
+                    <Field
+                      type="text"
+                      name="phone"
+                      placeholder="Teléfono celular"
+                      id="phone"
+                      disabled={(isDisabled)}
+                      className={`
+                        ${errors.phone && touched.phone ? 'input-error' : null}
+                          input-field `}
+                    />
+                    <ErrorMessage
+                      name="phone"
+                      component="span"
+                      className="input-error__message"
+                    />
+                  </div>
 
+                  {
+                    !isDisabled && 
                     <button
-                      type="submit"
-                      className={!(dirty && isValid) ? 'disabled-btn' : ''}
-                      disabled={!(dirty && isValid)}
+                    type="submit"
+                    className={!(dirty && isValid) ? 'submit-button__disabled' : 'submit-button'}
+                    disabled={!(dirty && isValid)}
                     >
                       Continuar
                     </button>
-                  </Form>
-                </div>
+                  }
+                </Form>
               </Fragment>
             )
           }}

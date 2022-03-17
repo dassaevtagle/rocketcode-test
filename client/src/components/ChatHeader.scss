@@ -1,0 +1,25 @@
+.header{
+  top: 0px;
+  overscroll-behavior: none;
+  z-index: 9999;
+  @apply sticky w-full bg-brand-pink h-28 pt-2 text-white flex justify-between shadow-md flex-wrap pl-4;
+  
+  &-subject{
+    @apply my-3 w-3/4 text-gray-800 font-bold text-lg pl-3;
+  }
+  &-question-icon {
+    @apply h-14 w-1/4 mt-3;
+  }
+
+  &-clock {
+    &__container {
+      @apply w-full flex pb-4;
+    }
+    &__logo {
+      @apply h-5 my-auto ml-4 mr-3;
+    }
+    &__description {
+      @apply text-sm my-auto;
+    }
+  }
+}

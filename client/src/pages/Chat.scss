@@ -1,7 +1,7 @@
 .chat {
-  @apply w-full m-auto md:w-4/6 lg:w-1/2 flex-col h-[95vh] overflow-y-scroll;
+  @apply bg-white w-full mt-[6vh] m-auto md:w-4/6 lg:w-5/12 flex-col h-[93vh] border rounded-t-lg border-neutral-800 overflow-y-scroll;
 
   &-messages {
-    @apply mt-20 mb-16;
+    @apply mt-24 mb-16 pl-7 pr-3;
   }
 }

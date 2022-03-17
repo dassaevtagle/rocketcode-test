@@ -1,0 +1,17 @@
+.image{
+  @apply m-auto h-10 rounded-full;
+
+  &-container{
+    border: solid 3px;
+    @apply border-brand-pink h-14 w-14 rounded-full flex overflow-hidden;
+  }
+}
+
+.message-container{
+  &__rocketcode{
+    @apply bg-gray-200 w-3/4 md:w-3/5 mx-4 my-2 rounded-lg p-4 font-semibold;
+  }
+  &__guest{
+    @apply bg-brand-pink float-right w-3/4 md:w-3/5 mx-4 my-2 p-4 rounded-lg font-semibold;
+  }
+}
